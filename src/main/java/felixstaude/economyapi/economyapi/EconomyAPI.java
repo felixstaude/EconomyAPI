@@ -1,5 +1,6 @@
 package felixstaude.economyapi.economyapi;
 
+import felixstaude.economyapi.language.Language;
 import felixstaude.economyapi.sql.SQLEconomyCommand;
 import felixstaude.economyapi.sql.SQLEconomyConnection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,11 +11,14 @@ public final class EconomyAPI extends JavaPlugin {
 
     private static String prefix = "EconomyAPI ";
     SQLEconomyConnection sqlconnection = new SQLEconomyConnection();
+    Language language = new Language();
 
     @Override
     public void onEnable() {
+        language.setLanguage();
         System.out.println(getPrefix() + "API startup");
         sqlconnection.connect();
+
     }
 
     @Override
