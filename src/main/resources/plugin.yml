@@ -1,0 +1,8 @@
+name: EconomyAPI
+version: '${project.version}'
+main: felixstaude.economyapi.economyapi.EconomyAPI
+api-version: 1.19
+prefix: EconomyAPI
+authors: [ FelixStaude ]
+description: This is the API for my EconomySystem Plugin
+website: felixstaude.de
