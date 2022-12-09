@@ -1,6 +1,5 @@
 package felixstaude.economyapi.language;
 
-import felixstaude.economyapi.files.FileHandler;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -12,6 +11,13 @@ public class Language {
     public static String getString(String string){
         if(getConfigFile().getString(string) != null){
             return getConfigFile().getString(string);
+        }
+        return "ERROR-1002 can't find string in language file";
+    }
+
+    public static String getCommandString(String string, String command){
+        if(getConfigFile().getString(string) != null){
+            return getConfigFile().getString(string).replace("%COMMAND%",command);
         }
         return "ERROR-1002 can't find string in language file";
     }

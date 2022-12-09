@@ -1,7 +1,8 @@
 package felixstaude.economyapi.sql;
 
 import felixstaude.economyapi.economyapi.EconomyAPI;
-import felixstaude.economyapi.files.FileHandler;
+import felixstaude.economyapi.files.SQLFileGetterSetter;
+import felixstaude.economyapi.language.Language;
 import org.bukkit.Bukkit;
 
 import java.sql.Connection;
@@ -10,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class SQLEconomyConnection {
+
+    static SQLFileGetterSetter sqlfile = new SQLFileGetterSetter();
 
     public static String host;
     public static String port;
@@ -20,9 +23,8 @@ public class SQLEconomyConnection {
 
     public static void connect(){
         if(!isConnected()){
-            FileHandler file = new FileHandler();
-            file.setSQLStandard();
-            file.readSQLData();
+            sqlfile.setSQLDefault();
+            sqlfile.readSQLData();
             try {
                 con = DriverManager.getConnection(
                         "jdbc:mysql://" + host + ":" + port + "/" + database, username, password);
@@ -30,9 +32,9 @@ public class SQLEconomyConnection {
                         "`MoneyDatabase` ( `UUID` VARCHAR(100), " +
                         "`Value` INT(100)) ENGINE = InnoDB; ");
                 ps.executeUpdate();
-                Bukkit.getLogger().info("SQL connected");
+                Bukkit.getLogger().info(Language.getString("sqlconnected"));
             } catch (SQLException throwables) {
-                Bukkit.getLogger().warning("can't connect SQL");
+                Bukkit.getLogger().warning(Language.getString("sqlerror2001"));
                 throwables.printStackTrace();
                 Bukkit.getServer().getPluginManager().disablePlugin(EconomyAPI.getPlugin(EconomyAPI.class));
             }
@@ -42,7 +44,7 @@ public class SQLEconomyConnection {
         if(isConnected()) {
             try {
                 con.close();
-                Bukkit.getLogger().info("SQL disconnected");
+                Bukkit.getLogger().info(Language.getString("sqldisconnected"));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
